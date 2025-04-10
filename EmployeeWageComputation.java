@@ -14,16 +14,27 @@ public class EmployeeWageComputation {
         Random random = new Random();
         int wagePerHour = 20;
         int fullDayHours = 8;
-        int attendance = random.nextInt(2);
+        // part-time attributes half of a full day
+        int partTimeHours = 4;
+        int dailyWage = 0;
+        // 0 - absent , 1-present for full time , 2- present for part-time
+        int attendance = random.nextInt(3);
         System.out.println(attendance);
         // check if the employee is absent
-        if (attendance == 0) {
-            System.out.println("Employee " + name + " is absent!!");
-        } else
-            System.out.println("Employee " + name + " is presnt ");
+        if (attendance == 1) {
+            System.out.println("Employee " + name + " is Present for full-time");
+            // calculating daily wage for full time
+            dailyWage = wagePerHour * fullDayHours;
+        } else if (attendance == 2) {
+            System.out.println("Employee " + name + " is Presnt for part-time");
+            // calculating the wage for part time
+            dailyWage = wagePerHour * partTimeHours;
+        } else {
+            System.out.println("Employee " + name + " is Absent!!");
+            dailyWage = 0;
+        }
         sc.close();
-        // calculating daily wage
-        int dailyWage = wagePerHour * fullDayHours;
+
         // Output of the daily wage
         System.out.println("Daily Employee Wage is : " + dailyWage);
     }
