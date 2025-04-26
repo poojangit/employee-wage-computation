@@ -2,10 +2,10 @@
 public class EmpWageBuilder {
 
     // Instance variables for company wage computation
-    private String companyName;
-    private int wagePerHour;
-    private int maxWorkingDays;
-    private int maxWorkingHours;
+    private final String companyName;
+    private final int wagePerHour;
+    private final int maxWorkingDays;
+    private final int maxWorkingHours;
     private int totalWage;
 
     // Constructor to initialize company details and limits
@@ -30,23 +30,22 @@ public class EmpWageBuilder {
 
             // Random attendance: 0 = Absent, 1 = Full-time, 2 = Part-time
             int attendance = (int) (Math.random() * 3);
-            int dailyHours = 0;
-
             // Determine daily working hours based on attendance
-            switch (attendance) {
-                case 1:
+            int dailyHours = switch (attendance) {
+                case 1 -> {
                     System.out.println("Day " + totalDays + ": Employee is Present for full-time");
-                    dailyHours = 8;
-                    break;
-                case 2:
+                    yield 8;
+                }
+                case 2 -> {
                     System.out.println("Day " + totalDays + ": Employee is Present for part-time");
-                    dailyHours = 4;
-                    break;
-                case 0:
+                    yield 4;
+                }
+                case 0 -> {
                     System.out.println("Day " + totalDays + ": Employee is Absent");
-                    dailyHours = 0;
-                    break;
-            }
+                    yield 0;
+                }
+                default -> throw new IllegalStateException("Unexpected value: " + attendance);
+            };
 
             // Ensure total hours do not exceed the monthly limit
             if (totalHours + dailyHours > maxWorkingHours) {
